@@ -11,3 +11,4 @@
 - Create repository
 - Create Heroku app
 - Add Postgres to app
+- Add `DISABLE_COLLECTSTATIC` to Heroku config variables, with value `1`
