@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv  # addition
 from os import environ  # addition
 from .utilities import parse_db_url  # addition
-load_dotenv()  # addition
+
+if not environ.get("PRODUCTION"):  # addition
+    from dotenv import load_dotenv  # addition
+    load_dotenv()  # addition
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
