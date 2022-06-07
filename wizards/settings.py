@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv  # addition
+from os import environ  # addition
+from .utilities import parse_db_url  # addition
+load_dotenv()  # addition
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-e%58_-^*flfrg1uy@m--bu9is#4cy$^l##_nh+2g7bepxx_v=@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # alteration
 
-ALLOWED_HOSTS = ['localhost']  # alteration
+ALLOWED_HOSTS = ['localhost', 'django-wizards.herokuapp.com']  # alteration
 
 # Application definition
 
@@ -80,13 +84,20 @@ WSGI_APPLICATION = 'wizards.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+config = parse_db_url(environ.get("DATABASE_URL"))  # addition
+
+# alteration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config["name"],
+        'USER': config["username"],
+        'PASSWORD': config["password"],
+        'HOST': config["host"],
+        'PORT': config["port"],
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

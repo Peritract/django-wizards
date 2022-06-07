@@ -8,7 +8,7 @@ django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 gunicorn = "*"
-dj-database-url = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
